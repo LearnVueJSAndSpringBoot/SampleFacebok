@@ -1,12 +1,13 @@
 package com.example.SampleFacebook.entity;
 
 import com.example.SampleFacebook.common.entity.EntityBase;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_comment")
 public class Comment extends EntityBase {

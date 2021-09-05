@@ -1,14 +1,15 @@
 package com.example.SampleFacebook.entity;
 
 import com.example.SampleFacebook.common.entity.EntityBase;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_post")
 public class Post extends EntityBase {
