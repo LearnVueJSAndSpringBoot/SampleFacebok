@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS `samplefacebook`;
 
 CREATE DATABASE `samplefacebook`;
 
