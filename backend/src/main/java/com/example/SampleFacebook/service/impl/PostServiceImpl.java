@@ -2,6 +2,9 @@ package com.example.SampleFacebook.service.impl;
 
 import com.example.SampleFacebook.entity.Comment;
 import com.example.SampleFacebook.entity.Post;
+import com.example.SampleFacebook.entity.User;
+import com.example.SampleFacebook.form.AddPostForm;
+import com.example.SampleFacebook.form.SearchForm;
 import com.example.SampleFacebook.repository.PostRepository;
 import com.example.SampleFacebook.service.PostService;
 import com.example.SampleFacebook.vo.CommentVO;
@@ -13,10 +16,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -37,6 +42,38 @@ public class PostServiceImpl implements PostService {
             postVOS.add(postVO);
         }
         return postVOS;
+    }
+
+    @Override
+    public List<PostVO> searchPost(SearchForm searchForm) {
+        Pageable pageable = PageRequest.of(searchForm.getPageIndex()-1,searchForm.getPageSize(), Sort.by("datePost").descending());
+        List<Post> posts = postRepository.findByContentLike("%"+searchForm.getText()+"%",pageable);
+        List<PostVO> postVOS = new ArrayList<>();
+        for(Post post : posts){
+            PostVO postVO = new PostVO();
+            postVO.setId(post.getId());
+            postVO.setUser(post.getUser().getName());
+            postVO.setTimePost(post.getDatePost());
+            postVO.setContentPost(post.getContent());
+            postVO.setCommentVOS(getComment(post.getComments().stream().toList()));
+            postVOS.add(postVO);
+        }
+        return postVOS;
+    }
+
+    @Override
+    public Boolean insertPost(AddPostForm addPostForm) {
+        Post post = new Post();
+        post.setCreated_by("truongtv");
+        post.setModified_by("truongtv");
+        post.setContent(addPostForm.getContent());
+        post.setDatePost(LocalDate.now());
+        // fake data
+        User user = new User();
+        user.setId(1l);
+        post.setUser(user);
+        postRepository.save(post);
+        return true;
     }
 
     private List<CommentVO> getComment(List<Comment> comments){

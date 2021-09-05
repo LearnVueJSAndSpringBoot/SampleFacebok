@@ -1,5 +1,7 @@
 package com.example.SampleFacebook.service;
 
-public interface CommentService {
+import com.example.SampleFacebook.form.AddCommentForm;
 
+public interface CommentService {
+    Boolean insertComment(AddCommentForm addCommentForm);
 }
