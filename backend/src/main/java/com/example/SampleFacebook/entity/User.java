@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "tb_users")
+@Table(name = "tb_user")
 public class User extends EntityBase {
     private String name;
     private LocalDate dob;
