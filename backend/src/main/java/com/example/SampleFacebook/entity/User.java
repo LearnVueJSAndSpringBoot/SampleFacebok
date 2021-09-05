@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "tb_user")
+@Table(name = "tb_users")
 public class User extends EntityBase {
     private String name;
     private LocalDate dob;
@@ -18,6 +18,7 @@ public class User extends EntityBase {
     private String address;
     private String email;
     private String phone;
+
     @OneToMany(mappedBy = "user")
     private Set<Post> posts = new HashSet<>();
 
