@@ -9,7 +9,7 @@ npm i --save ant-design-vue
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run serve -- --port 3000
 ```
 
 ### Compiles and minifies for production
