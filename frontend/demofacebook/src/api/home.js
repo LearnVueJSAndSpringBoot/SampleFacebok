@@ -1,12 +1,9 @@
-import request from "@/api/request.js"
+import request from "@/api/request.js";
 
 function getDataHome() {
-    return request({
-        url: "/getnewpost",
-        methods: "get"
-    })
-}
 
+    return request.get(`/getnewpost`);
+}
 function insertDataHome() {
     return request({
         url: "/insertpost",

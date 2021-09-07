@@ -39,11 +39,10 @@ export default {
     },
   },
 
-  created() {
+    console.log("demno");
     this.getDataPost();
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

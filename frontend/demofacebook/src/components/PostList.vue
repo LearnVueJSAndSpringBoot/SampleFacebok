@@ -37,13 +37,15 @@
       </a-input-search>
       <br />
       <br />
-      <Comment :dataListComment="post.commentVOS" />
+      <input @keyup.enter="submit(item.id)" v-model="dataComment" />
+      <Comment :dataListComment="item.commentVOS" :idPost="item.id" />
     </div>
   </div>
 </template>
 
 <script>
 import Comment from "@/components/Comment.vue";
+import commentaxios from "@/api/comment.js";
 export default {
   name: "PostList",
   components: {
@@ -56,8 +58,32 @@ export default {
       default: () => [],
     },
   },
+  data() {
+    return {
+      dataComment: "",
+      formComment: {
+        idPost: 0,
+        level: 0,
+        content: "",
+        idParentComment: 0,
+      },
+    };
+  },
+  methods: {
+    submit(idPost) {
+      this.formComment.idPost = idPost;
+      this.formComment.level = 1;
+      this.formComment.content = this.dataComment;
+      this.formComment.idParentComment = 0;
+      this.insertComment();
+    },
+    async insertComment() {
+      await commentaxios
+        .insertComment(this.formComment)
+        .then(this.$router.go());
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>
