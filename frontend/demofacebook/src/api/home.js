@@ -1,14 +1,11 @@
 import request from "@/api/request.js";
 
 function getDataHome() {
-
     return request.get(`/getnewpost`);
 }
-function insertDataHome() {
-    return request({
-        url: "/insertpost",
-        methods: "post"
-    })
+
+function insertDataHome(formPost) {
+    return request.post(`/insertpost`, formPost)
 }
 
 export default {
