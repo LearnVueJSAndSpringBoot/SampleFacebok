@@ -8,8 +8,8 @@
       <div>{{ item.content }}</div>
       <div @click="reply(item.user, index)">Phản hồi</div>
       <div
-        v-if="item.commentVOS.length != 0 && !checkRender"
-        @click="checkRender = !checkRender"
+        v-if="item.commentVOS.length != 0 && !indexRender.includes(index)"
+        @click="showComment(index)"
       >
         {{ item.commentVOS.length }} bình luận khác
       </div>
@@ -18,7 +18,7 @@
         @keyup.enter="submit(item.level, item.id)"
         v-model="dataComment"
       />
-      <div v-if="item.commentVOS.length != 0 && checkRender">
+      <div v-if="indexRender.includes(index)">
         <Comment :dataListComment="item.commentVOS" :idPost="idPost" />
       </div>
     </div>
@@ -48,6 +48,7 @@ export default {
   data() {
     return {
       indexInput: -1,
+      indexRender: [],
       checkInput: false,
       checkRender: false,
       dataComment: "",
@@ -61,9 +62,14 @@ export default {
   },
   methods: {
     reply(user, index) {
+      
       this.checkInput = true;
       this.dataComment = user;
       this.indexInput = index;
+    },
+    showComment(index){
+      this.checkRender = !this.checkRender;
+      this.indexRender.push(index);
     },
     submit(level, idParent) {
       this.formComment.idPost = this.idPost;
