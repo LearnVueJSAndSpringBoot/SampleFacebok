@@ -37,8 +37,8 @@
       </a-input-search>
       <br />
       <br />
-      <input @keyup.enter="submit(item.id)" v-model="dataComment" />
-      <Comment :dataListComment="item.commentVOS" :idPost="item.id" />
+      <input @keyup.enter="submit(post.id)" v-model="dataComment" />
+      <Comment :dataListComment="post.commentVOS" :idPost="post.id" />
     </div>
   </div>
 </template>
