@@ -38,7 +38,7 @@ export default {
       this.listPost = post.data.data;
     },
   },
-
+ created() {
     console.log("demno");
     this.getDataPost();
   },

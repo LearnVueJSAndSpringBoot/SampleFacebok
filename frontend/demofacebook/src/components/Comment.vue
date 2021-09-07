@@ -29,7 +29,6 @@
 import Comment from "@/components/Comment.vue";
 import commentaxios from "@/api/comment.js";
 export default {
-,
   name: "Comment",
   components: {
     Comment,
