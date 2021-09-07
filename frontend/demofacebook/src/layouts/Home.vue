@@ -1,14 +1,24 @@
 <template>
   <div id="home">
     <Header />
-    <PostList :dataPostList="listPost" />
+    <a-layout-content style="padding: 0 300px">
+      <div
+        :style="{
+          background: '#fff',
+          padding: '50px',
+          minHeight: '650px',
+          margin: '16px 0',
+        }"
+      >
+        <PostList :dataPostList="listPost" />
+      </div>
+    </a-layout-content>
   </div>
 </template>
 
 <script>
 import Header from "@/components/Header.vue";
 import PostList from "@/components/PostList.vue";
-// import axios from "axios";
 import home from "@/api/home.js";
 export default {
   name: "Home",
@@ -21,16 +31,15 @@ export default {
       listPost: [],
     };
   },
+
   methods: {
     async getDataPost() {
       let post = await home.getDataHome();
       this.listPost = post.data.data;
-      console.log(this.listPost);
     },
   },
 
-created() {
-    console.log("demno");
+  created() {
     this.getDataPost();
   },
 };

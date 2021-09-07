@@ -7,4 +7,14 @@ function getDataHome() {
     })
 }
 
-export default { getDataHome }
+function insertDataHome() {
+    return request({
+        url: "/insertpost",
+        methods: "post"
+    })
+}
+
+export default {
+    getDataHome,
+    insertDataHome
+}
