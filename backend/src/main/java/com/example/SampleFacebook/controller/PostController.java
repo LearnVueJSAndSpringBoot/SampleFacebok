@@ -27,7 +27,7 @@ public class PostController {
         return new ResponseEntity<>(responseBase,HttpStatus.OK);
     }
 
-    @GetMapping(path = "/searchpost")
+    @PostMapping(path = "/searchpost")
     public ResponseEntity<ResponseBase> searchNewPost(@RequestBody SearchForm searchForm){
         ResponseBase responseBase = new ResponseBase();
         responseBase.setData(postService.searchPost(searchForm));

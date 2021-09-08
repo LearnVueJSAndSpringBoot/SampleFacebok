@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <Header />
+    <Header @search="checkEmit" />
     <a-layout-content style="padding: 0 300px">
       <div
         :style="{
@@ -37,11 +37,13 @@ export default {
       let post = await home.getDataHome();
       this.listPost = post.data.data;
     },
+    checkEmit(data){
+       this.listPost = data;
+    }
   },
  created() {
-    console.log("demno");
     this.getDataPost();
-  },
+  }
 };
 </script>
 

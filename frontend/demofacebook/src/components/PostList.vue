@@ -14,10 +14,14 @@
         </a-col>
       </a-row>
       <br />
-      <h3 class="text-overflow" refs="input">
-        {{ post.contentPost }}
-        <a class="btn-overflow" href="#">...Show more</a>
+      <h3 class="text-overflow" v-show="!flag">
+        {{ post.contentPost | summary }}
+        <a class="btn-overflow" @click="flag = true">...Show more</a>
       </h3>
+      <section class="text-overflow" v-show="flag">
+        <p v-html="post.contentPost"></p>
+        <a class="btn-overflow" @click="flag = false">Show less</a>
+      </section>
       <viewer :images="post.image">
         <img
           class="img-content"
@@ -60,6 +64,7 @@ export default {
   },
   data() {
     return {
+      flag: false,
       dataComment: "",
       formComment: {
         idPost: 0,
@@ -81,6 +86,11 @@ export default {
       await commentaxios
         .insertComment(this.formComment)
         .then(this.$router.go());
+    },
+  },
+  filters: {
+    summary: function (text) {
+      return text.substring(0, 50);
     },
   },
 };

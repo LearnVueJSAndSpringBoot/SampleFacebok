@@ -27,7 +27,14 @@
         <a-menu-item key="3">
           <Add />
         </a-menu-item>
-        <a-input-search placeholder="Search on vue " style="width: 300px" />
+        <a-menu-item key="4">
+    <a-input-search
+      placeholder="Search on vue "
+      style="width: 300px"
+      v-model="search" @search="submit()"
+    />
+        </a-menu-item>
+        
       </a-menu>
     </a-layout-header>
   </div>
@@ -35,11 +42,36 @@
 
 <script>
 import Add from "@/components/Add.vue";
+import search from "@/api/search.js";
 export default {
   name: "Header",
   components: {
-    Add,
+    Add
   },
+  data() {
+    return {
+      search: "",
+      dataSearch: {
+        text: "",
+        pageIndex: 1,
+        pageSize: 10
+      },
+    };
+  },
+  methods: {
+    submit() {
+      this.dataSearch.text = this.search;
+      this.dataSearch.pageIndex = 1;
+      this.dataSearch.pageSize = 10;
+      this.getDataSearchxx();
+      
+    },
+    async getDataSearchxx() {
+      let get = await search.getDataSearch(this.dataSearch);
+      this.$emit("search",get.data.data);
+    },
+  },
+  filters: {},
 };
 </script>
 
