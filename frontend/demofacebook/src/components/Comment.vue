@@ -1,26 +1,35 @@
 <template>
   <div id="comment">
     <div class="comment" v-for="(item, index) in dataListComment" :key="index">
-      <!-- <div>=====================================================</div> -->
-      <h1></h1>
-      <div>{{ item.user }}</div>
-      <div>{{ item.timeComment }}</div>
-      <div>{{ item.content }}</div>
-      <div @click="reply(item.user, index)">Phản hồi</div>
-      <div
-        v-if="item.commentVOS.length != 0 && !indexRender.includes(index)"
-        @click="showComment(index)"
-      >
-        {{ item.commentVOS.length }} bình luận khác
+      <div class="subComment">
+        <h4>
+          <a-avatar
+            src="https://i0.wp.com/tuzonagamer.com/wp-content/uploads/2020/05/WhatsApp-Image-2020-05-18-at-2.42.44-PM-1.jpeg?ssl=1"
+            :size="25"
+          />
+          {{ item.user }}
+        </h4>
+        <h6>{{ item.timeComment }}</h6>
+        <h5>{{ item.content }}</h5>
+
+        <h5 @click="reply(item.user, index)">Reply</h5>
+        <h5
+          v-if="item.commentVOS.length != 0 && !checkRender"
+          @click="checkRender = !checkRender"
+        >
+          {{ item.commentVOS.length }} comments
+        </h5>
+        <a-input
+          v-if="checkInput && index == indexInput"
+          @keyup.enter="submit(item.level, item.id)"
+          v-model="dataComment"
+        />
+        <div v-if="item.commentVOS.length != 0 && checkRender">
+          <Comment :dataListComment="item.commentVOS" :idPost="idPost" />
+        </div>
       </div>
-      <input
-        v-if="checkInput && index == indexInput"
-        @keyup.enter="submit(item.level, item.id)"
-        v-model="dataComment"
-      />
-      <div v-if="indexRender.includes(index)">
-        <Comment :dataListComment="item.commentVOS" :idPost="idPost" />
-      </div>
+      <br />
+      <br />
     </div>
   </div>
 </template>
@@ -48,7 +57,6 @@ export default {
   data() {
     return {
       indexInput: -1,
-      indexRender: [],
       checkInput: false,
       checkRender: false,
       dataComment: "",
@@ -62,14 +70,9 @@ export default {
   },
   methods: {
     reply(user, index) {
-      
       this.checkInput = true;
       this.dataComment = user;
       this.indexInput = index;
-    },
-    showComment(index){
-      this.checkRender = !this.checkRender;
-      this.indexRender.push(index);
     },
     submit(level, idParent) {
       this.formComment.idPost = this.idPost;
@@ -88,7 +91,12 @@ export default {
 </script>
 
 <style>
-.comment {
-  background-color: antiquewhite;
+.subComment {
+  border: 1px solid rgb(243, 239, 239);
+  border-radius: 30px;
+  padding: 10px;
+  -webkit-box-shadow: 0px 0px 22px 26px rgba(237, 237, 237, 0.94);
+  -moz-box-shadow: 0px 0px 22px 26px rgba(237, 237, 237, 0.94);
+  box-shadow: 0px 0px 22px 26px rgba(237, 237, 237, 0.94);
 }
 </style>

@@ -19,30 +19,25 @@
         <a class="btn-overflow" @click="flag = true">...Show more</a>
       </h3>
       <section class="text-overflow" v-show="flag">
-        <p v-html="post.contentPost"></p>
+        <h3 v-html="post.contentPost"></h3>
         <a class="btn-overflow" @click="flag = false">Show less</a>
       </section>
-      <viewer :images="post.image">
-        <img
-          class="img-content"
-          src="https://lh3.googleusercontent.com/proxy/GScOkIfUGZa9jZmG_gB_aqdcTi435Qxno09lBPksSWZbn7mvXDGIk7HM9LaiUfXPkL1lsdh0tQv6QNMfNUHRJXSJ7DFXQjGzCvaBoA2posO8VLaQaO_AjtlK83QV7GxEeIRkwqAO-lsnEljeYUCJ2O8KzCfmNOE2JjrWuySYXJ-beAvGt6p2G6j5vIY2gL-NvkRe-Bh7"
-        />
-      </viewer>
+      <img
+        class="img-content"
+        src="http://quangbaso.net/wp-content/uploads/2018/09/hinh-nen-may-tinh-4k-Su-Tu-trong-thien-nhien-hoang-da.jpg"
+      />
       <br />
       <br />
-      <a-input-search
+      <a-input
         placeholder="Write a comment"
-        size="small"
-        style="width: 300px"
-      >
-        <template #enterButton>
-          <a-button>SEND</a-button>
-        </template>
-      </a-input-search>
+        @keyup.enter="submit(post.id)"
+        v-model="dataComment"
+      />
       <br />
       <br />
-      <input @keyup.enter="submit(post.id)" v-model="dataComment" />
       <Comment :dataListComment="post.commentVOS" :idPost="post.id" />
+      <br />
+      <br />
     </div>
   </div>
 </template>
@@ -90,10 +85,15 @@ export default {
   },
   filters: {
     summary: function (text) {
-      return text.substring(0, 50);
+      return text.substring(0, 150);
     },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.img-content {
+  height: 300px;
+  width: 800px;
+}
+</style>

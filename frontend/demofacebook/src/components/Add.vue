@@ -42,6 +42,7 @@
                 ]"
                 :rows="4"
                 placeholder="What's on your mind?"
+                v-model="newPost"
               />
             </a-form-item>
           </a-col>
@@ -77,6 +78,7 @@ export default {
     return {
       form: this.$form.createForm(this),
       visible: false,
+      newPost : '',
     };
   },
   methods: {
@@ -89,7 +91,7 @@ export default {
     async addPost() {
         const formPost = {
           userId : 1,
-          content: 'abc'
+          content: this.newPost,
         }
         const response = await home.insertDataHome(formPost);
         console.log(response);
